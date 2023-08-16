@@ -63,9 +63,7 @@ function UsageDataFormComponent() {
     });
 
     useEffect(() => {
-      if(usageDataForm.updateIsRequired){
-        usageDataValidation.disableFields(false);
-      }
+      usageDataValidation.unlock();
     },[])
 
     useEffect(() => {
@@ -82,12 +80,11 @@ function UsageDataFormComponent() {
                 "DISTRIBUTOR" : addressData.distributor.distributorName
               }
               planService.getPlan(request).then(data => {
-                console.log('data'+ data);
                   dispatch(actions.setPlanData(data));
                   usageDataValidation.setIsLoading(false);
                   usageDataValidation.navigate("/plan");
               }).catch(error => {
-                //usageDataValidation.reset();
+                usageDataValidation.reset();
               });
               }
         }
@@ -95,36 +92,19 @@ function UsageDataFormComponent() {
 
 
     return (
-      <>
-
-<div class="container vh-custom">
-        <div class="row h-100 justify-content-center align-items-center ">
-
-
-        <div class="col-10 col-lg-8 col-md-8">
-
-        <div class="row">
-        <div class="col-12">
-          <div class="fs-1  fw-semibold text-center  pb-3">
-          Vul uw verbruik in
-
-          
-        </div>
-        </div>
-        
-        <div class="card bg-white p-4 col-12">
-      
-      <div class="row">
+      <>      
+      <div class="form-container">
+      <form class="row g-3">
         {onPeakElectricityUsageValidation.isIncludedInForm &&
         <div className="col-12 col-md-12">
-          <div class="input-group mb-3">
+          <div class="input-group">
             <div class="input-group-text">       
               Stroom
             </div>
-            <input type="text" onChange={(e)=>{onPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${onPeakElectricityUsageField.isValidatedClass}`} disabled={onPeakElectricityUsageField.isDisabled} value={onPeakElectricityUsageField.input} aria-label="Text input with checkbox" placeholder={onPeakElectricityUsageValidation.validator.example}/>
+            <input type="text" onChange={(e)=>{onPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${onPeakElectricityUsageField.isValidatedClass}`} disabled={onPeakElectricityUsageField.isDisabled} value={onPeakElectricityUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
             <span class="input-group-text rounded-end-2">.00 {onPeakElectricityUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
-              {`Vul uw normale verbruik in ${onPeakElectricityUsageValidation.validator.identifier} in, voorbeeld: ${onPeakElectricityUsageValidation.validator.example}`} 
+              {`Vul uw normale verbruik in ${onPeakElectricityUsageValidation.validator.identifier} in, bijvoorbeeld: ${onPeakElectricityUsageValidation.validator.example}`} 
             </div>
           </div>
         </div>  
@@ -132,12 +112,12 @@ function UsageDataFormComponent() {
 
         {offPeakElectricityUsageValidation.isIncludedInForm &&
         <div className="col-12 col-md-6">
-          <div class="input-group mb-3">
+          <div class="input-group">
             <div class="input-group-text">     
             <input onChange={()=>{offPeakElectricityUsageValidation.setIsDisabledAndClear(!offPeakElectricityUsageField.isDisabled);}} checked={offPeakElectricityUsageField.isToggled} disabled={offPeakElectricityUsageField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>             
             Dal
             </div>
-            <input type="text" onChange={(e)=>{offPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${offPeakElectricityUsageField.isValidatedClass}`} disabled={offPeakElectricityUsageField.isDisabled} value={offPeakElectricityUsageField.input} placeholder={offPeakElectricityUsageValidation.validator.example}/>
+            <input type="text" onChange={(e)=>{offPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${offPeakElectricityUsageField.isValidatedClass}`} disabled={offPeakElectricityUsageField.isDisabled} value={offPeakElectricityUsageField.input} placeholder={`verbruik`}/>
             <span class="input-group-text rounded-end-2">.00 {offPeakElectricityUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw dal verbruik in ${offPeakElectricityUsageValidation.validator.identifier} in, voorbeeld: ${offPeakElectricityUsageValidation.validator.example}`}  
@@ -148,12 +128,12 @@ function UsageDataFormComponent() {
 
         {solarProductionValidation.isIncludedInForm &&
         <div className="col-12 col-md-6">
-          <div class="input-group mb-3">
+          <div class="input-group">
             <div class="input-group-text">       
             <input onChange={()=>{solarProductionValidation.setIsDisabledAndClear(!solarProductionField.isDisabled);}} checked={solarProductionField.isToggled} disabled={solarProductionField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>             
             Zon
             </div>
-            <input type="text" onChange={(e)=>{solarProductionValidation.processInput(e);}} className={`form-control ${solarProductionField.isValidatedClass}`} disabled={solarProductionField.isDisabled} value={solarProductionField.input} placeholder={solarProductionValidation.validator.example}/>
+            <input type="text" onChange={(e)=>{solarProductionValidation.processInput(e);}} className={`form-control ${solarProductionField.isValidatedClass}`} disabled={solarProductionField.isDisabled} value={solarProductionField.input} placeholder={`productie`}/>
             <span class="input-group-text rounded-end-2">.00 {solarProductionValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw zon productie in ${solarProductionValidation.validator.identifier} in, voorbeeld: ${solarProductionValidation.validator.example}`} 
@@ -164,11 +144,11 @@ function UsageDataFormComponent() {
         
         {gasUsageValidation.isIncludedInForm &&
         <div className="col-12 col-md-12">
-          <div class="input-group mb-3">
+          <div class="input-group">
             <div class="input-group-text">       
               Gas
             </div>
-            <input type="text" onChange={(e)=>{gasUsageValidation.processInput(e);}} className={`form-control ${gasUsageField.isValidatedClass}`} disabled={gasUsageField.isDisabled} value={gasUsageField.input} aria-label="Text input with checkbox" placeholder={gasUsageValidation.validator.example}/>
+            <input type="text" onChange={(e)=>{gasUsageValidation.processInput(e);}} className={`form-control ${gasUsageField.isValidatedClass}`} disabled={gasUsageField.isDisabled} value={gasUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
             <span class="input-group-text rounded-end-2">.00 {gasUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw gas verbruik in ${gasUsageValidation.validator.identifier} in, voorbeeld: ${gasUsageValidation.validator.example}`} 
@@ -180,7 +160,7 @@ function UsageDataFormComponent() {
         <div className="col-12">
           <div className="position-relative">
             <button type="submit" 
-              onClick={(e)=>{usageDataValidation.submit(e)}} disabled={ usageDataForm.isDisabled } className="btn btn-primary btn-as-block">
+              onClick={(e)=>{usageDataValidation.submit(e)}} disabled={ usageDataForm.isDisabled } className="submit-button btn-as-block">
               {usageDataForm.isLoading &&
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               }
@@ -188,10 +168,8 @@ function UsageDataFormComponent() {
             </button>
           </div>
         </div>
-        
-
-      </div>
-      </div> </div> </div> </div> </div> 
+      </form>
+      </div> 
       </>
     );
 }

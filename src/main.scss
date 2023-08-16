@@ -3,4 +3,39 @@
 
 @import '~bootstrap/scss/bootstrap.scss';
 
+.main-container{
+    @extend .container; 
+    height: calc(100vh - 89px);
+}
 
+.centered-content-row{
+    @extend .row;
+    @extend .h-100;
+    @extend .justify-content-center; 
+    @extend .align-items-center;
+}
+
+.form-container {
+    @extend .card; 
+    @extend .bg-white;
+    @extend .p-4;
+    @extend .col-12;
+}
+
+.page-title {
+    @extend .fs-1; 
+    @extend .fw-semibold;
+    @extend .text-center;
+    @extend .pb-3;
+  }
+
+  .content-spacing-row {
+    @extend .row;
+    @extend .mt-5 ;
+    @extend .mb-5;
+  }
+  
+  .submit-button {
+    @extend .btn;
+    @extend .btn-danger; 
+  }

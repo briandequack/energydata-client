@@ -1,12 +1,23 @@
-import { UtilityFormComponent } from '../forms/UtilityFormComponent';
-import { useSelector } from "react-redux";
+import { UtilityComponent } from '../components/UtilityComponent';
 
 function Utilities() {
-    const addressData = useSelector((state) => state.addressData.data);
     return (
       <>
-              <UtilityFormComponent/>
-              </>
+      <div class="main-container">
+        <div class="centered-content-row">
+          <div class="col-10 col-lg-8 col-md-8">
+            <div class="content-spacing-row">
+              <div class="col-12">
+                <div class="page-title">
+                  Kies uw aansluiting(en)
+                </div>
+              </div>
+              <UtilityComponent />
+            </div>
+          </div> 
+        </div>
+      </div> 
+      </>
     );
   }
 

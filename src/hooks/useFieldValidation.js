@@ -11,6 +11,7 @@ export default function useFieldValidation(config) {
     validator: config.validator,
     processInput: processInput,
     reset: reset,
+    unlock: unlock,
     setInput: setInput,
     setIsDisabled: setIsDisabled,
     setIsDisabledAndClear: setIsDisabledAndClear,
@@ -27,6 +28,12 @@ export default function useFieldValidation(config) {
         setIsValidated(false);
         setIsValidatedClass('');
         setToggleIsDisabled(false);
+    }
+
+    function unlock(){
+      setIsDisabled(config.field.transientIsDisabled);
+      setToggleIsDisabled(false);
+      setIsToggled(!config.field.transientIsDisabled);
     }
 
     function setInput(input){
@@ -47,6 +54,10 @@ export default function useFieldValidation(config) {
       dispatch(fieldValidation.actions.setIsDisabled({name:fieldValidation.name, isDisabled:bool}));  
     }
 
+    function setTransientIsDisabled(bool){
+      dispatch(fieldValidation.actions.setTransientIsDisabled({name:fieldValidation.name, transientIsDisabled:bool}));  
+    }
+
     function setIsToggled(bool){
       dispatch(fieldValidation.actions.setIsToggled({name:fieldValidation.name, isToggled:bool}));
     }
@@ -61,6 +72,7 @@ export default function useFieldValidation(config) {
       setIsValidatedClass('');
       setIsDisabled(bool);   
       setIsToggled(!bool);    
+      setTransientIsDisabled(bool);
     }
 
     function setIsValidatedClass(string){

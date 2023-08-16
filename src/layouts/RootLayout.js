@@ -11,7 +11,7 @@ export default function RootLayout(){
         <header>
           <nav className="navbar navbar-expand-lg bg-primary p-4" data-bs-theme="dark">
             <div className="container-fluid">
-              <a className="navbar-brand fw-bold" href="#">Enersee</a>
+              <a className="navbar-brand fw-bold" href="#">Enerwijs</a>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
@@ -20,8 +20,7 @@ export default function RootLayout(){
                   <li className="nav-item">
                     <NavLink to="/" className="nav-link">Home</NavLink>
                   </li>
-                  
-
+                
                   {addressData !== null && (
                     <li className="nav-item">
                       <NavLink to="/utilities" className="nav-link">Aansluiting</NavLink>
@@ -40,9 +39,6 @@ export default function RootLayout(){
                   </li>
                   )}
                 </ul>
-                <span className="navbar-text">
-                  Crafted by DigiDuck
-                </span>
               </div>
             </div>
           </nav>

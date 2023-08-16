@@ -46,6 +46,12 @@ export const fieldActions = {
       payload: data
     };
   },
+  setTransientIsDisabled: (data) => {
+    return {
+      type: actionTypes.SET_FIELD_TRANSIENT_IS_DISABLED,
+      payload: data
+    };
+  },
   setIsValidated: (data) => {
     return {
       type: actionTypes.SET_FIELD_IS_VALIDATED,

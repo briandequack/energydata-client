@@ -1,11 +1,9 @@
 import './main.scss';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, Navigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-//Pages
 import  { Home, Utilities, Usage, Plan, NotFound }  from './pages/index';
-
-//Layouts
 import RootLayout from './layouts/RootLayout';
 
 function App() {

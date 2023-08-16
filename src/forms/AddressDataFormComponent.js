@@ -51,17 +51,24 @@ function AddressDataFormComponent() {
     });
 
     useEffect(() => {
+      addresDataFormValidation.unlock();
+    },[])
+
+    useEffect(() => {
         if (!addressDataForm.isSubmitted) {
           addresDataFormValidation.validate([zipCodeField, houseNumberField, houseNumberSuffixField]);
         } else {
             if(addressDataForm.isLoading){
-              console.log('call api')
-            addressDataService.getAddresInfo(zipCodeField.input, houseNumberField.input, houseNumberSuffixField.input)
+            addressDataService.getAddresInfo({
+                zipCode: zipCodeField.input,
+                houseNumber:  houseNumberField.input,
+                houseNumberSuffix: houseNumberSuffixField.input
+            })
             .then(data => { 
-                  addresDataFormValidation.setIsLoading(false);
-                  addresDataFormValidation.setFeedback('');
-                  dispatch(actions.setAddressData(data));           
-                  addresDataFormValidation.navigate("/utilities");
+                dispatch(actions.setAddressData(data)); 
+                addresDataFormValidation.setIsLoading(false);
+                addresDataFormValidation.setFeedback('');
+                addresDataFormValidation.navigate("/utilities");
      
             })
             .catch(error => {
@@ -77,107 +84,57 @@ function AddressDataFormComponent() {
       }, [zipCodeField, houseNumberField, houseNumberSuffixField]);
 
     return (
-      <>     
-
-<div class="container vh-custom">
-        <div class="row h-100 justify-content-center align-items-center ">
-
-
-        <div class="col-10 col-lg-8 col-md-8">
-
-        <div class="row">
-        <div class="col-12">
-          <div class="fs-1 fw-semibold text-center  pb-3">
-          Vind direct de voordeligste energieleverancier
-
-          
-        </div>
-        </div>
-        
-          <div class="card bg-white p-4 col-12">
-            
-            <form class="row g-3">
-
-              {addressData !== null ?
-              <>
-              <div className="col-12 col-md-10">
-                <div class="input-group">
-                  <div class="input-group-text">       
-                    Adres
-                  </div>
-                  <input type="text" className={`form-control rounded-end-2 is-valid`} disabled={true} />
-                </div>
+      <> 
+      <div class="form-container">
+        <form class="row g-3">
+          <div className="col-12 col-lg-4 col-md-12">
+            <div class="input-group">
+              <div class="input-group-text">       
+                Postcode
               </div>
-
-              <div className="col-12 col-md-2 position-relative">
-                <button type="submit" 
-                onClick={()=>{ dispatch(actions.setAddressData(null)); addresDataFormValidation.reset() }} disabled={false} className="btn btn-primary btn-as-block">
-                Wijzig
-                </button>
+              <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control rounded-end-2 ${zipCodeField.isValidatedClass}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
+              <div className="invalid-tooltip">
+                {`Vul uw ${zipCodeValidation.validator.identifier} in, voorbeeld: ${zipCodeValidation.validator.example}`} 
               </div>
-              </>
-              :
-              <>
-
-              <div className="col-12 col-lg-4 col-md-12">
-                <div class="input-group">
-                  <div class="input-group-text">       
-                    Postcode
-                  </div>
-                  <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control rounded-end-2 ${zipCodeField.isValidatedClass}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
-                  <div className="invalid-tooltip">
-                    {`Vul uw ${zipCodeValidation.validator.identifier} in, voorbeeld: ${zipCodeValidation.validator.example}`} 
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-lg-3 col-md-6">
-                <div class="input-group">
-                  <div class="input-group-text">       
-                    Nr.
-                  </div>
-                  <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberField.isValidatedClass}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
-                  <div className="invalid-tooltip">
-                    {`Vul uw ${houseNumberValidation.validator.identifier} in, voorbeeld: ${houseNumberValidation.validator.example}`} 
-                  </div>
-                </div>
-              </div>
-              
-              <div className="col-12 col-lg-3 col-md-6">
-                <div class="input-group">
-                  <div class="input-group-text">       
-                  <input onChange={()=>{houseNumberSuffixValidation.setIsDisabledAndClear(!houseNumberSuffixField.isDisabled);}} checked={houseNumberSuffixField.isToggled} disabled={houseNumberSuffixField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>
-                    Toev.
-                  </div>
-                  <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberSuffixField.isValidatedClass}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
-                  <div className="invalid-tooltip">
-                    {`Vul uw ${houseNumberSuffixValidation.validator.identifier} in, voorbeeld: ${houseNumberSuffixValidation.validator.example}`} 
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-md-2 position-relative">
-                <button type="submit" 
-                onClick={(e)=>{addresDataFormValidation.submit(e)}} disabled={ addressDataForm.isDisabled } className="btn btn-primary btn-as-block">
-                {addressDataForm.isLoading &&
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                }
-                Verder
-                </button>
-              </div>
-              </>
-              } 
-               
-            </form>
-
+            </div>
           </div>
+
+          <div className="col-12 col-lg-3 col-md-6">
+            <div class="input-group">
+              <div class="input-group-text">       
+                Nr.
+              </div>
+              <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberField.isValidatedClass}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
+              <div className="invalid-tooltip">
+                {`Vul uw ${houseNumberValidation.validator.identifier} in, voorbeeld: ${houseNumberValidation.validator.example}`} 
+              </div>
+            </div>
           </div>
           
+          <div className="col-12 col-lg-3 col-md-6">
+            <div class="input-group">
+              <div class="input-group-text">       
+              <input onChange={()=>{houseNumberSuffixValidation.setIsDisabledAndClear(!houseNumberSuffixField.isDisabled);}} checked={houseNumberSuffixField.isToggled} disabled={houseNumberSuffixField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>
+                Toev.
+              </div>
+              <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberSuffixField.isValidatedClass}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
+              <div className="invalid-tooltip">
+                {`Vul uw ${houseNumberSuffixValidation.validator.identifier} in, voorbeeld: ${houseNumberSuffixValidation.validator.example}`} 
+              </div>
+            </div>
           </div>
-          </div>
-</div>
 
-
+          <div className="col-12 col-md-2 position-relative">
+            <button type="submit" 
+            onClick={(e)=>{addresDataFormValidation.submit(e)}} disabled={ addressDataForm.isDisabled } className="submit-button btn-as-block">
+            {addressDataForm.isLoading &&
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            }
+            Verder
+            </button>
+          </div>             
+        </form>
+      </div>
       </>
     );
 }

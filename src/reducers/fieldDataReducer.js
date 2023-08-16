@@ -17,6 +17,7 @@ const fieldDataReducer = (state = initialState, action) => {
             name: action.payload.name, 
             isRequired: action.payload.isRequired,
             isDisabled: action.payload.isDisabled,
+            transientIsDisabled: action.payload.isDisabled,
             initIsDisabled: action.payload.isDisabled,
             isValidated: false,
             isValidatedClass: '',
@@ -54,6 +55,13 @@ const fieldDataReducer = (state = initialState, action) => {
               item.name === action.payload.name ? { ...item, isDisabled: action.payload.isDisabled } : item
             ),
           };
+          case actionTypes.SET_FIELD_TRANSIENT_IS_DISABLED:
+            return {
+              ...state,
+              data: state.data.map((item) =>
+                item.name === action.payload.name ? { ...item, transientIsDisabled: action.payload.transientIsDisabled } : item
+              ),
+            };
         case actionTypes.SET_FIELD_IS_TOGGLED:
           return {
             ...state,

@@ -15,6 +15,9 @@ export default function useFormValidation(config) {
       navigate: navigate,
       setFeedback: setFeedback,
       setIsLoading: setIsLoading,
+      setIsSubmitted: setIsSubmitted,
+      setIsDisabled: setIsDisabled,
+      unlock: unlock,
       disableFields: disableFields
     })
 
@@ -43,6 +46,16 @@ export default function useFormValidation(config) {
         setIsValidated(true);
         setIsDisabled(false); 
     }
+
+    function unlock(){
+      setIsSubmitted(false);
+      for (let fieldValidation of formValidation.fieldValidations) {
+        if(fieldValidation.isIncludedInForm){
+          fieldValidation.unlock();
+        }
+      }
+    }
+
 
     function reset(){
       setIsValidated(false);
