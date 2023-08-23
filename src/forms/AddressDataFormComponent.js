@@ -113,7 +113,6 @@ function AddressDataFormComponent() {
               </div>
             </div>
           </div>
-          {JSON.stringify(houseNumberField)}
           
           <div className="col-12 col-lg-3 col-md-6">
             <div className="input-group">
