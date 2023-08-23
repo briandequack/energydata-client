@@ -21,7 +21,7 @@ const fieldDataReducer = (state = initialState, action) => {
             initIsDisabled: action.payload.isDisabled,
             isValidated: false,
             isValidatedClass: '',
-            input: '',
+            input: action.payload.input !== undefined ? action.payload.input : '',
             isToggled: !action.payload.isDisabled,
             toggleIsDisabled: false
         }],

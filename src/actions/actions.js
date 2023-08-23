@@ -120,6 +120,18 @@ export const formActions = {
       type: actionTypes.SET_FORM_UPDATE_IS_REQUIRED,
       payload: data
     };
+  },
+  setIsNext: (data) => {
+    return {
+      type: actionTypes.SET_FORM_IS_NEXT,
+      payload: data
+    };
+  },
+  setIsPrev: (data) => {
+    return {
+      type: actionTypes.SET_FORM_IS_PREV,
+      payload: data
+    };
   }
 }
 

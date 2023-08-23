@@ -20,6 +20,8 @@ const formDataReducer = (state = initialState, action) => {
             isDisabled: true,
             isSubmitted: false,
             isLoading: false,
+            isNext: true,
+            isPrev: false,
             feedback: ''
         }],
         };
@@ -57,6 +59,20 @@ const formDataReducer = (state = initialState, action) => {
             ...state,
             data: state.data.map((item) =>
               item.name === action.payload.name ? { ...item, feedback: action.payload.feedback } : item
+            ),
+          }; 
+          case actionTypes.SET_FORM_IS_PREV:
+            return {
+              ...state,
+              data: state.data.map((item) =>
+                item.name === action.payload.name ? { ...item, isPrev: action.payload.isPrev } : item
+              ),
+            }; 
+          case actionTypes.SET_FORM_IS_NEXT:
+          return {
+            ...state,
+            data: state.data.map((item) =>
+              item.name === action.payload.name ? { ...item, isNext: action.payload.isNext } : item
             ),
           };  
           case actionTypes.SET_FORM_UPDATE_IS_REQUIRED:

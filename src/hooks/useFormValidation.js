@@ -9,6 +9,7 @@ export default function useFormValidation(config) {
     const [formValidation, setFormValidation] = useState({
       actions: config.actions,
       fieldValidations: config.fieldValidations,
+      clickedButtonLabel:'',
       validate: validate,
       reset: reset,
       submit: submit,
@@ -18,11 +19,17 @@ export default function useFormValidation(config) {
       setIsSubmitted: setIsSubmitted,
       setIsDisabled: setIsDisabled,
       unlock: unlock,
+      setIsNext: setIsNext,
+      setIsPrev: setIsPrev,
       disableFields: disableFields
     })
 
     function submit(e){
-      e.preventDefault();
+      e.preventDefault(); 
+      setFormValidation(prevState => ({
+        ...prevState,
+        clickedButtonLabel: e.target.innerHTML
+      }));
       setIsLoading(true);
       setIsSubmitted(true);    
       setIsDisabled(true);  
@@ -105,6 +112,14 @@ export default function useFormValidation(config) {
 
     function setUpdateIsRequired(bool){
       dispatch(formValidation.actions.setUpdateIsRequired({name:config.form.name, updateIsRequired:bool}));
+    }
+
+    function setIsPrev(bool){
+      dispatch(formValidation.actions.setIsPrev({name:config.form.name, isPrev:bool}));
+    }
+
+    function setIsNext(bool){
+      dispatch(formValidation.actions.setIsNext({name:config.form.name, isNext:bool}));
     }
 
     function navigate(url) {

@@ -1,101 +1,57 @@
+import { formatPrice } from '../utils/regexUtils';
 
-function PlanComponent({ item }) {
-
-    const number = 1559.8130042999999;
-
-const formatter = new Intl.NumberFormat('nl-NL', {
-  style: 'currency',
-  currency: 'EUR'
-});
+function PlanComponent({ item, contractType }) {
 
     return (
         <>
-        <div class="card mb-3">
-            <div class="card-body">
-         {item.energyDataProviderName && <h5 class="card-title">{item.energyDataProviderName}</h5>}
-        {/*}
-        Exclusief btw:
-        {item.onPeakElecRate && <p>Normaal per kwh: {item.onPeakElecRate}</p>}
-        {item.offPeakElecRate && <p>Dal per kwh:{item.offPeakElecRate}</p>}
-        {item.solarProductionRate && <p>Teruglevering per kwh:{item.solarProductionRate}</p>}
-        {item.elecFixedDailyCosts && <p>Vaste leveringskosten per dag:{item.elecFixedDailyCosts}</p>}
-        {item.distributorElecFixedDailyCosts && <p>Netbeheerder kosten per dag:{item.distributorElecFixedDailyCosts}</p>}
-        {item.gasRate && <p>Ga per m3: { item.gasRate}</p>}
-        {item.gasFixedDailyCosts && <p>Vaste leveringskosten per dag:{item.gasFixedDailyCosts}</p>}
-        {item.distributorElecFixedDailyCosts && <p>Netbeheerder kosten per dag:{item.distributorGasFixedDailyCosts}</p>}
-        
-        Inclusief btw:
-        {item.onPeakElecUsage && <p>kwh: {item.onPeakElecUsage}</p>}
-        {item.onPeakElecRateInclAll && <p>Normaal per kwh: {item.onPeakElecRateInclAll}</p>}
-        {item.onPeakElecDailyCostsInclAll && <p>Kosten normaal per dag: {item.onPeakElecDailyCostsInclAll}</p>}
-        {item.onPeakElecMonthlyCostsInclAll && <p>Kosten normaal per maand: {item.onPeakElecMonthlyCostsInclAll}</p>}
-        {item.onPeakElecYearlyCostsInclAll && <p>Kosten normaal per jaar: {item.onPeakElecYearlyCostsInclAll}</p>}
-        
+        <div className="p-4">
+          <div className="card mb-3">
+            <div className="card-body">
+              <img 
+                src={`${process.env.PUBLIC_URL}/${item.energyDataProviderName.toLowerCase()}-logo.png`}
+                alt={item.energyDataProviderName}
+                style={{ width: '100%', padding: '30px'}}
+              />
+                {item.energyDataProviderName && <h5 className="card-title text-center">{contractType}</h5>}
+            </div>
 
-        {item.offPeakElecUsage && <p>kwh: {item.offPeakElecUsage}</p>}
-        {item.offPeakElecRateInclAll && <p>Dal per kwh:{item.offPeakElecRateInclAll}</p>}
-        {item.offPeakElecDailyCostsInclAll && <p>Kosten dal per dag: {item.offPeakElecDailyCostsInclAll}</p>}
-        {item.offPeakElecMonthlyCostsInclAll && <p>Kosten dal per maand: {item.offPeakElecMonthlyCostsInclAll}</p>}
-        {item.offPeakElecYearlyCostsInclAll && <p>Kosten dal per jaar: {item.offPeakElecYearlyCostsInclAll}</p>}
-        
+            <div className="accordion accordion-flush border-top" id={`${item.energyDataProviderName}-${contractType[0]}-accordion`}>
+              <div className="accordion-item">
+                <h2 className="accordion-header" id={`${item.energyDataProviderName}-${contractType[0]}-heading`}>
+              <button className={`${item.energyDataProviderName.toLowerCase()} accordion-button collapsed`} type="button" data-bs-toggle="collapse" data-bs-target={`#${item.energyDataProviderName}-${contractType[0]}-collapse`} aria-expanded="false" aria-controls={`${item.energyDataProviderName}-${contractType[0]}-collapse`}>
+                Tarieven
+              </button>
+            </h2>
+ 
+            <div id={`${item.energyDataProviderName}-${contractType[0]}-collapse`}  className={`${item.energyDataProviderName.toLowerCase()} accordion-collapse collapse`} aria-labelledby={`${item.energyDataProviderName}-${contractType[0]}-heading`} data-bs-parent={`#${item.energyDataProviderName}-${contractType[0]}-accordion`}>
+              <div className="accordion-body">
+                {item.onPeakElecRateInclAll && <h6>Stroom(jaarlijks)</h6>}
+                {item.onPeakElecRateInclAll && <small>Normaal: {item.onPeakElecUsage} kwh * {formatPrice(item.onPeakElecRateInclAll,6)} = {formatPrice(item.onPeakElecYearlyCostsInclAll)}<br></br></small>}
+                {item.offPeakElecRateInclAll &&<small>Dal: {item.offPeakElecUsage} kwh * {formatPrice(item.offPeakElecRateInclAll,6)} = {formatPrice(item.offPeakElecYearlyCostsInclAll)}<br></br></small>}
+                {item.elecFixedYearlyCostsInclTax &&<small>Vaste levering: 12 * {formatPrice(item.elecFixedMonthlyCostsInclTax,6)} = {formatPrice(item.elecFixedYearlyCostsInclTax)}<br></br></small>}
+                {item.distributorElecFixedYearlyCostsInclTax &&<small>Netbeheerder: 12 * {formatPrice(item.distributorElecFixedMonthlyCostsInclTax)} = {formatPrice(item.distributorElecFixedYearlyCostsInclTax)}<br></br></small>}
+                {item.elecTotalYearlyCostsInclAll &&<small>Totaal: {formatPrice(item.elecTotalYearlyCostsInclAll)}<br></br></small>}
 
-        
+                {item.gasRateInclAll && <h6 className="mt-2">Gas(jaarlijks)</h6>}
+                {item.gasRateInclAll &&<small>Normaal: {item.usageGas} m3 * {formatPrice(item.gasRateInclAll,6)} = {formatPrice(item.gasYearlyCostsInclAll)}<br></br></small>}
+                {item.gasFixedYearlyCostsInclTax &&<small>Vaste levering: 12 * {formatPrice(item.gasFixedMonthlyCostsInclTax,6)} = {formatPrice(item.gasFixedYearlyCostsInclTax)}<br></br></small>}
+                {item.distributorGasFixedYearlyCostsInclTax &&<small>Netbeheerder: 12 * {formatPrice(item.distributorGasFixedMonthlyCostsInclTax)} = {formatPrice(item.distributorGasFixedYearlyCostsInclTax)}<br></br></small>}
+                {item.gasTotalYearlyCostsInclAll &&<small>Totaal: {formatPrice(item.gasTotalYearlyCostsInclAll)}<br></br></small>}
 
-        {item.solarProductionRateInclAll && <p>Teruglevering per kwh:{item.solarProductionRateInclAll}</p>}
-        {item.solarProductionDailyProfitsInclAll && <p>Winst per dag: {item.solarProductionDailyProfitsInclAll}</p>}
-        {item.solarProductionMonthlyProfitsInclAll && <p>Winst per maand: {item.solarProductionMonthlyProfitsInclAll}</p>}
-   
-
-        {item.elecFixedDailyCostsInclTax && <p>Vaste leveringskosten per dag:{item.elecFixedDailyCostsInclTax}</p>}
-        {item.elecFixedMonthlyCostsInclTax && <p>Vaste leveringskosten per maand:{item.elecFixedMonthlyCostsInclTax}</p>}
-        {item.elecFixedYearlyCostsInclTax && <p>Vaste leveringskosten per year:{item.elecFixedYearlyCostsInclTax}</p>}
-       
-       
-        {item.distributorElecFixedDailyCostsInclTax && <p>Netbeheerder kosten per dag:{item.distributorElecFixedDailyCostsInclTax}</p>}
-        {item.distributorElecFixedMonthlyCostsInclTax && <p>Netbeheerder kosten per maand:{item.distributorElecFixedMonthlyCostsInclTax}</p>}
-        {item.distributorElecFixedYearlyCostsInclTax && <p>Netbeheerder kosten per jaar:{item.distributorElecFixedYearlyCostsInclTax}</p>}
-        
-
-
-        {item.elecTotalYearlyCostsInclAll && <p>Totaal per jaar:{item.elecTotalYearlyCostsInclAll}</p>}
-
-        {item.usageGas && <p>m3: { item.usageGas}</p>}
-        {item.gasRateInclAll && <p>Ga per m3: { item.gasRateInclAll}</p>}
-        {item.gasDailyCostsInclAll && <p>Kosten gas per dag: {item.gasDailyCostsInclAll}</p>}
-        {item.gasMonthlyCostsInclAll && <p>Kosten gas per maand: {item.gasMonthlyCostsInclAll}</p>}
-        {item.gasYearlyCostsInclAll && <p>Kosten gas per jaar:{item.gasYearlyCostsInclAll}</p>}
-
-        {item.gasFixedDailyCostsInclTax && <p>Vaste leveringskosten per dag:{item.gasFixedDailyCostsInclTax}</p>}
-        {item.gasFixedMonthlyCostsInclTax && <p>Vaste leveringskosten per maand:{item.gasFixedMonthlyCostsInclTax}</p>}
-
-        {item.distributorGasFixedDailyCostsInclTax && <p>Netbeheerder kosten per dag:{item.distributorGasFixedDailyCostsInclTax}</p>}
-        {item.distributorGasFixedMonthlyCostsInclTax && <p>Netbeheerder kosten per maand:{item.distributorGasFixedMonthlyCostsInclTax}</p>}
-       
-        {item.gasTotalYearlyCostsInclAll && <p>Kosten gas per jaar:{item.gasTotalYearlyCostsInclAll}</p>}
-
-        */}
-       
-        {item.onPeakElecRateInclAll && <p>Normaal per kwh: {item.onPeakElecRateInclAll}</p>}
-
-    
-        {item.offPeakElecRateInclAll && <p>Dal per kwh: {item.offPeakElecRateInclAll}</p>}
-
-        {item.gasRateInclAll && <p>Per m3: {item.gasRateInclAll}</p>}
-
-
+              </div>
+            </div>
+          </div>
         </div>
-        <ul class="list-group list-group-flush">
-        {item.totalMonthlyCostsInclAll  && <li class="list-group-item">Per maand: {formatter.format(item.totalMonthlyCostsInclAll)}</li>}
-        {item.totalYearlyCostsInclAll  && <li class="list-group-item">Per jaar: {formatter.format(item.totalYearlyCostsInclAll)}</li>}
-
+        <ul className="list-group list-group-flush">      
+          {item.totalMonthlyCostsInclAll  && 
+            <li className="list-group-item ps-3 lead">
+            Per maand: {formatPrice(item.totalMonthlyCostsInclAll)}<br></br>
+            Per jaar: {formatPrice(item.totalYearlyCostsInclAll)}
+          </li>}
         </ul>
-        
-        <div class="card-body">
-        <a href="#" class="btn btn-primary">{item.energyDataProviderName}</a>
-        </div>
-        
-        </div>
-        </>
+      </div>
+    </div>
+    </>
     );
 }
 
