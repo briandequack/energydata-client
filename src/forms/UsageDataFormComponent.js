@@ -106,7 +106,7 @@ function UsageDataFormComponent() {
             <div className="input-group-text">       
               Stroom
             </div>
-            <input type="text" onChange={(e)=>{onPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${onPeakElectricityUsageField.isValidatedclassName}`} disabled={onPeakElectricityUsageField.isDisabled} value={onPeakElectricityUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
+            <input type="text" onChange={(e)=>{onPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${onPeakElectricityUsageField.isValidatedClass}`} disabled={onPeakElectricityUsageField.isDisabled} value={onPeakElectricityUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
             <span className="input-group-text rounded-end-2">.00 {onPeakElectricityUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw normale verbruik in ${onPeakElectricityUsageValidation.validator.identifier} in, bijvoorbeeld: ${onPeakElectricityUsageValidation.validator.example}`} 
@@ -122,7 +122,7 @@ function UsageDataFormComponent() {
             <input onChange={()=>{offPeakElectricityUsageValidation.setIsDisabledAndClear(!offPeakElectricityUsageField.isDisabled);}} checked={offPeakElectricityUsageField.isToggled} disabled={offPeakElectricityUsageField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>             
             Dal
             </div>
-            <input type="text" onChange={(e)=>{offPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${offPeakElectricityUsageField.isValidatedclassName}`} disabled={offPeakElectricityUsageField.isDisabled} value={offPeakElectricityUsageField.input} placeholder={`verbruik`}/>
+            <input type="text" onChange={(e)=>{offPeakElectricityUsageValidation.processInput(e);}} className={`form-control ${offPeakElectricityUsageField.isValidatedClass}`} disabled={offPeakElectricityUsageField.isDisabled} value={offPeakElectricityUsageField.input} placeholder={`verbruik`}/>
             <span className="input-group-text rounded-end-2">.00 {offPeakElectricityUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw dal verbruik in ${offPeakElectricityUsageValidation.validator.identifier} in, voorbeeld: ${offPeakElectricityUsageValidation.validator.example}`}  
@@ -138,7 +138,7 @@ function UsageDataFormComponent() {
             <input onChange={()=>{solarProductionValidation.setIsDisabledAndClear(!solarProductionField.isDisabled);}} checked={solarProductionField.isToggled} disabled={solarProductionField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>             
             Zon
             </div>
-            <input type="text" onChange={(e)=>{solarProductionValidation.processInput(e);}} className={`form-control ${solarProductionField.isValidatedclassName}`} disabled={solarProductionField.isDisabled} value={solarProductionField.input} placeholder={`productie`}/>
+            <input type="text" onChange={(e)=>{solarProductionValidation.processInput(e);}} className={`form-control ${solarProductionField.isValidatedClass}`} disabled={solarProductionField.isDisabled} value={solarProductionField.input} placeholder={`productie`}/>
             <span className="input-group-text rounded-end-2">.00 {solarProductionValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw zon productie in ${solarProductionValidation.validator.identifier} in, voorbeeld: ${solarProductionValidation.validator.example}`} 
@@ -153,7 +153,7 @@ function UsageDataFormComponent() {
             <div className="input-group-text">       
               Gas
             </div>
-            <input type="text" onChange={(e)=>{gasUsageValidation.processInput(e);}} className={`form-control ${gasUsageField.isValidatedclassName}`} disabled={gasUsageField.isDisabled} value={gasUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
+            <input type="text" onChange={(e)=>{gasUsageValidation.processInput(e);}} className={`form-control ${gasUsageField.isValidatedClass}`} disabled={gasUsageField.isDisabled} value={gasUsageField.input} aria-label="Text input with checkbox" placeholder={`verbruik`}/>
             <span className="input-group-text rounded-end-2">.00 {gasUsageValidation.validator.identifier}</span> 
             <div className="invalid-tooltip">
               {`Vul uw gas verbruik in ${gasUsageValidation.validator.identifier} in, voorbeeld: ${gasUsageValidation.validator.example}`} 

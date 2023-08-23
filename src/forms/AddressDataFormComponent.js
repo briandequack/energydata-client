@@ -6,6 +6,7 @@ import { useFormValidation, useFieldValidation } from '../hooks/index';
 import { selectors } from '../reducers/index';
 import { nlConfig } from '../validations/index';
 import { useSelector } from 'react-redux';
+import { json } from 'react-router-dom';
 
 function AddressDataFormComponent() {
     const addressData = useSelector((state) => state.addressData.data);
@@ -94,7 +95,7 @@ function AddressDataFormComponent() {
               <div className="input-group-text">       
                 Postcode
               </div>
-              <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control rounded-end-2 ${zipCodeField.isValidatedclassName}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
+              <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control rounded-end-2 ${zipCodeField.isValidatedClass}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${zipCodeValidation.validator.identifier} in, voorbeeld: ${zipCodeValidation.validator.example}`} 
               </div>
@@ -106,12 +107,13 @@ function AddressDataFormComponent() {
               <div className="input-group-text">       
                 Nr.
               </div>
-              <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberField.isValidatedclassName}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
+              <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberField.isValidatedClass}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${houseNumberValidation.validator.identifier} in, voorbeeld: ${houseNumberValidation.validator.example}`} 
               </div>
             </div>
           </div>
+          {JSON.stringify(houseNumberField)}
           
           <div className="col-12 col-lg-3 col-md-6">
             <div className="input-group">
@@ -119,7 +121,7 @@ function AddressDataFormComponent() {
               <input onChange={()=>{houseNumberSuffixValidation.setIsDisabledAndClear(!houseNumberSuffixField.isDisabled);}} checked={houseNumberSuffixField.isToggled} disabled={houseNumberSuffixField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>
                 Toev.
               </div>
-              <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberSuffixField.isValidatedclassName}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
+              <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberSuffixField.isValidatedClass}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${houseNumberSuffixValidation.validator.identifier} in, voorbeeld: ${houseNumberSuffixValidation.validator.example}`} 
               </div>
