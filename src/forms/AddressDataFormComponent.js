@@ -92,10 +92,10 @@ function AddressDataFormComponent() {
         <form className="row g-3">
           <div className="col-12 col-lg-4 col-md-12">
             <div className="input-group">
-              <div className="input-group-text">       
+              <div className="input-group-text form-input">       
                 Postcode
               </div>
-              <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control rounded-end-2 ${zipCodeField.isValidatedClass}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
+              <input type="text" onChange={(e)=>{zipCodeValidation.processInput(e);}} className={`form-control form-input rounded-end-2 ${zipCodeField.isValidatedClass}`} disabled={zipCodeField.isDisabled} value={zipCodeField.input} placeholder="1234AB"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${zipCodeValidation.validator.identifier} in, voorbeeld: ${zipCodeValidation.validator.example}`} 
               </div>
@@ -104,10 +104,10 @@ function AddressDataFormComponent() {
 
           <div className="col-12 col-lg-3 col-md-6">
             <div className="input-group">
-              <div className="input-group-text">       
+              <div className="input-group-text form-input">       
                 Nr.
               </div>
-              <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberField.isValidatedClass}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
+              <input type="text" onChange={(e)=>{houseNumberValidation.processInput(e);}} className={`form-control form-input rounded-end-2 ${houseNumberField.isValidatedClass}`} disabled={houseNumberField.isDisabled} value={houseNumberField.input} placeholder="1"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${houseNumberValidation.validator.identifier} in, voorbeeld: ${houseNumberValidation.validator.example}`} 
               </div>
@@ -116,11 +116,11 @@ function AddressDataFormComponent() {
           
           <div className="col-12 col-lg-3 col-md-6">
             <div className="input-group">
-              <div className="input-group-text">       
-              <input onChange={()=>{houseNumberSuffixValidation.setIsDisabledAndClear(!houseNumberSuffixField.isDisabled);}} checked={houseNumberSuffixField.isToggled} disabled={houseNumberSuffixField.toggleIsDisabled} className="form-check-input mt-0 me-2" type="checkbox"/>
+              <div className="input-group-text form-input">       
+              <input onChange={()=>{houseNumberSuffixValidation.setIsDisabledAndClear(!houseNumberSuffixField.isDisabled);}} checked={houseNumberSuffixField.isToggled} disabled={houseNumberSuffixField.toggleIsDisabled} className="form-check-input mt-0 me-2 form-input" type="checkbox"/>
                 Toev.
               </div>
-              <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control rounded-end-2 ${houseNumberSuffixField.isValidatedClass}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
+              <input type="text" onChange={(e)=>{houseNumberSuffixValidation.processInput(e);}} className={`form-control form-input rounded-end-2 ${houseNumberSuffixField.isValidatedClass}`} disabled={houseNumberSuffixField.isDisabled} value={houseNumberSuffixField.input} placeholder="A"/>
               <div className="invalid-tooltip">
                 {`Vul uw ${houseNumberSuffixValidation.validator.identifier} in, voorbeeld: ${houseNumberSuffixValidation.validator.example}`} 
               </div>

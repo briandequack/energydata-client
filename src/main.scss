@@ -18,6 +18,7 @@
 .form-container {
     @extend .card; 
     @extend .bg-white;
+    @extend .border-dark-subtle;
     @extend .p-4;
     @extend .col-12;
 }
@@ -38,4 +39,8 @@
   .submit-button {
     @extend .btn;
     @extend .btn-danger; 
+  }
+
+  .form-input {
+    @extend .border-dark-subtle;
   }

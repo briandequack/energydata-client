@@ -9,7 +9,7 @@ function Home() {
             <div className="content-spacing-row">
               <div className="col-12">
                 <div className="page-title">
-                  Vind de voordeligste energieleverancier
+                  Vul uw postcode in en vergelijk energieleveranciers
                 </div>
               </div>
               <AddressDataFormComponent />
