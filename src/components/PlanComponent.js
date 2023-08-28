@@ -13,7 +13,7 @@ function PlanComponent({ item, contractType }) {
               <img 
                 src={`${process.env.PUBLIC_URL}/${item.energyDataProviderName.toLowerCase()}-logo.png`}
                 alt={item.energyDataProviderName}
-                style={{ height: '200px', padding: '30px'}}
+                style={{ width: '100%', padding: '30px'}}
               />
                 {item.energyDataProviderName && <h5 className="card-title text-center">{contractType}</h5>}
             </div>
