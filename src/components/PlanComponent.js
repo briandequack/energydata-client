@@ -2,7 +2,7 @@ import { formatPrice } from '../utils/regexUtils';
 import { useSelector } from "react-redux";
 
 function PlanComponent({ item, contractType }) {
-
+  // get address data
   const addressData = useSelector((state) => state.addressData.data);
 
     return (
